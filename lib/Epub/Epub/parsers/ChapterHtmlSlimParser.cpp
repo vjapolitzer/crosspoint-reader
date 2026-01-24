@@ -40,18 +40,18 @@ bool matches(const char* tag_name, const char* possible_tags[], const int possib
   return false;
 }
 
+// flush the contents of partWordBuffer to currentTextBlock
 void ChapterHtmlSlimParser::flushPartWordBuffer() {
+  // determine font style
   EpdFontFamily::Style fontStyle = EpdFontFamily::REGULAR;
-  if (boldUntilDepth < depth) {
-    if (italicUntilDepth < depth) {
-      fontStyle = EpdFontFamily::BOLD_ITALIC;
-    } else {
-      fontStyle = EpdFontFamily::BOLD;
-    }
+  if (boldUntilDepth < depth && italicUntilDepth < depth) {
+    fontStyle = EpdFontFamily::BOLD_ITALIC;
+  } else if (boldUntilDepth < depth) {
+    fontStyle = EpdFontFamily::BOLD;
   } else if (italicUntilDepth < depth) {
     fontStyle = EpdFontFamily::ITALIC;
   }
-
+  // flush the buffer
   partWordBuffer[partWordBufferIndex] = '\0';
   currentTextBlock->addWord(partWordBuffer, fontStyle);
   partWordBufferIndex = 0;
