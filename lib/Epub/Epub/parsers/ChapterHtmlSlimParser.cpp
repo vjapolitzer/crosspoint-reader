@@ -138,7 +138,7 @@ void XMLCALL ChapterHtmlSlimParser::startElement(void* userData, const XML_Char*
       self->partWordBuffer[self->partWordBufferIndex] = '\0';
       self->currentTextBlock->addWord(self->partWordBuffer, fontStyle);
       self->partWordBufferIndex = 0;
-      
+
       self->startNewTextBlock(self->currentTextBlock->getStyle());
     } else {
       self->startNewTextBlock((TextBlock::Style)self->paragraphAlignment);
