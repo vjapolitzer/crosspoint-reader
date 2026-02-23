@@ -5,6 +5,8 @@
 
 #include "CrossPointSettings.h"
 #include "Epub.h"
+#include "I18n.h"
+#include "components/UITheme.h"
 #include "EpubReaderActivity.h"
 #include "Txt.h"
 #include "TxtReaderActivity.h"
@@ -130,6 +132,7 @@ void ReaderActivity::onEnter() {
     }
     onGoToTxtReader(std::move(txt));
   } else {
+    GUI.drawPopup(renderer, tr(STR_LOADING_POPUP));
     auto epub = loadEpub(initialBookPath);
     if (!epub) {
       onGoBack();
