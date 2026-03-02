@@ -203,7 +203,7 @@ int pngDrawCallback(PNGDRAW* pDraw) {
   int dstWidth = ctx->dstWidth;
   int outXBase = ctx->config->x;
   int screenWidth = ctx->screenWidth;
-  DitherMode ditherMode = ctx->config->ditherMode;
+  bool useDithering = ctx->config->useDithering;
   bool caching = ctx->caching;
 
   int srcX = 0;
@@ -214,19 +214,12 @@ int pngDrawCallback(PNGDRAW* pDraw) {
     if (outX < screenWidth) {
       uint8_t gray = ctx->grayLineBuffer[srcX];
 
-      uint8_t ditheredGray = 0;
-      switch (ditherMode) {
-        case DitherMode::Noise:
-          ditheredGray = applyNoiseDither4Level(gray, outX, outY);
-          break;
-        case DitherMode::Bayer:
-          ditheredGray = applyBayerDither4Level(gray, outX, outY);
-          break;
-        case DitherMode::Off:
-        default:
-          ditheredGray = gray / 85;
-          if (ditheredGray > 3) ditheredGray = 3;
-          break;
+      uint8_t ditheredGray;
+      if (useDithering) {
+        ditheredGray = applyBayerDither4Level(gray, outX, outY);
+      } else {
+        ditheredGray = gray / 85;
+        if (ditheredGray > 3) ditheredGray = 3;
       }
       drawPixelWithRenderMode(*ctx->renderer, outX, outY, ditheredGray);
       if (caching) ctx->cache.setPixel(outX, outY, ditheredGray);
