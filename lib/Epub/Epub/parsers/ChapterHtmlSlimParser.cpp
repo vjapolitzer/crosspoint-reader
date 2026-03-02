@@ -406,8 +406,8 @@ void XMLCALL ChapterHtmlSlimParser::startElement(void* userData, const XML_Char*
                         converted = JpegToBmpConverter::jpegFileToBmpStreamWithSize(srcFile, bmpFile, displayWidth,
                                                                                     displayHeight);
                       } else if (ext == ".png" || ext == ".PNG") {
-                        converted =
-                            PngToBmpConverter::pngFileToBmpStreamWithSize(srcFile, bmpFile, displayWidth, displayHeight);
+                        converted = PngToBmpConverter::pngFileToBmpStreamWithSize(srcFile, bmpFile, displayWidth,
+                                                                                  displayHeight);
                       }
                       bmpFile.flush();
                       bmpFile.close();

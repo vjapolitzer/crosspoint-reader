@@ -5,15 +5,15 @@
 
 #include "CrossPointSettings.h"
 #include "Epub.h"
-#include "I18n.h"
-#include "components/UITheme.h"
 #include "EpubReaderActivity.h"
+#include "I18n.h"
 #include "Txt.h"
 #include "TxtReaderActivity.h"
 #include "Xtc.h"
 #include "XtcReaderActivity.h"
 #include "activities/util/BmpViewerActivity.h"
 #include "activities/util/FullScreenMessageActivity.h"
+#include "components/UITheme.h"
 #include "util/StringUtils.h"
 
 std::string ReaderActivity::extractFolderPath(const std::string& filePath) {
