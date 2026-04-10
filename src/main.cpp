@@ -318,7 +318,9 @@ void loop() {
   static unsigned long lastMemPrint = 0;
 
   gpio.update();
-  halTiltSensor.update();
+  if (SETTINGS.tiltPageTurn) {
+    halTiltSensor.update(SETTINGS.orientation);
+  }
 
   renderer.setFadingFix(SETTINGS.fadingFix);
 
@@ -347,7 +349,8 @@ void loop() {
 
   // Check for any user activity (button press or release) or active background work
   static unsigned long lastActivityTime = millis();
-  if (gpio.wasAnyPressed() || gpio.wasAnyReleased() || activityManager.preventAutoSleep()) {
+  if (gpio.wasAnyPressed() || gpio.wasAnyReleased() || halTiltSensor.hadActivity() ||
+      activityManager.preventAutoSleep()) {
     lastActivityTime = millis();         // Reset inactivity timer
     powerManager.setPowerSaving(false);  // Restore normal CPU frequency on user activity
   }
