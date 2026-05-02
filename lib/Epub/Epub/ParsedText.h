@@ -15,7 +15,8 @@ class GfxRenderer;
 class ParsedText {
   std::vector<std::string> words;
   std::vector<EpdFontFamily::Style> wordStyles;
-  std::vector<bool> wordContinues;  // true = word attaches to previous (no space before it)
+  std::vector<bool> wordContinues;      // true = word attaches to previous (no space before it)
+  std::vector<bool> wordIsFocusSuffix;  // true = token is the regular tail of a focus bold-prefix split
   BlockStyle blockStyle;
   bool extraParagraphSpacing;
   bool hyphenationEnabled;
